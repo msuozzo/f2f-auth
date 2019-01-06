@@ -13,7 +13,7 @@ construction and handling, the SearchFragment which contains the
 authentication protocol logic, as well as the inter-fragment intent dispatch
 (`LocalBroadcastManager`).
 
-The `app/src/main/res/raw/local_cert2.pem` is the server's root TLS
+The `app/src/main/res/raw/tls_cert.pem` is the server's root TLS
 certificate that is required to connect to the authentication server. I have
 included a script to regenerate this certificate based on the current IP
 address from which the authentication server is being served.
