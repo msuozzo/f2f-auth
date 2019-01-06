@@ -1,0 +1,63 @@
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.matthewsuozzo.f2fauth.ui.home
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.matthewsuozzo.f2fauth.testing.OpenForTesting
+import com.matthewsuozzo.f2fauth.vo.Device
+import com.matthewsuozzo.f2fauth.vo.Resource
+import javax.inject.Inject
+
+@OpenForTesting
+class HomeViewModel @Inject constructor() : ViewModel() {
+
+    private val _endpoint = MutableLiveData<String>()
+    private val _ackResult = MutableLiveData<Resource<Boolean>>()
+    private val _provisionResult = MutableLiveData<Resource<Device>>()
+
+    val endpoint : LiveData<String> = _endpoint
+
+    val ackResult: LiveData<Resource<Boolean>> = _ackResult
+
+    val provisionResult: LiveData<Resource<Device>> = _provisionResult
+
+    fun setEndpoint(originalInput: String) {
+        val input = originalInput.trim()
+        if (input == _endpoint.value) {
+            return
+        }
+        _endpoint.value = input
+    }
+
+    fun setAckResult(result: Resource<Boolean>) {
+        _ackResult.value = result
+    }
+
+    fun setProvisionResult(result: Resource<Device>) {
+        _provisionResult.value = result
+    }
+    fun clearProvisionResult() {
+        _provisionResult.value = null
+    }
+    fun refresh() {
+        _endpoint.value?.let {
+            _endpoint.value = it
+        }
+    }
+}
